@@ -32,6 +32,9 @@ public class DefaultFlagEncoderFactory implements FlagEncoderFactory {
 
         else if (name.equals(CAR))
             return new CarFlagEncoder(configuration);
+        
+        else if (name.equals("car_avoid_toll"))
+            return new CarAvoidTollFlagEncoder(configuration);
 
         else if (name.equals(CAR4WD))
             return new Car4WDFlagEncoder(configuration);

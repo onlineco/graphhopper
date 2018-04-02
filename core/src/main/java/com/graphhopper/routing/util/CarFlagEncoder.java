@@ -115,23 +115,42 @@ public class CarFlagEncoder extends AbstractFlagEncoder {
 
         maxPossibleSpeed = 140;
 
+        // Modified maxspeed for Japan
+        // See Japan Tagging https://wiki.openstreetmap.org/wiki/Japan_tagging
         // autobahn
         defaultSpeedMap.put("motorway", 100);
         defaultSpeedMap.put("motorway_link", 70);
         defaultSpeedMap.put("motorroad", 90);
         // bundesstraße
-        defaultSpeedMap.put("trunk", 70);
-        defaultSpeedMap.put("trunk_link", 65);
+        defaultSpeedMap.put("trunk", 60);//70);
+        defaultSpeedMap.put("trunk_link", 55);//65);
         // linking bigger town
-        defaultSpeedMap.put("primary", 65);
-        defaultSpeedMap.put("primary_link", 60);
+        defaultSpeedMap.put("primary", 60);//65);
+        defaultSpeedMap.put("primary_link", 55);//60);
         // linking towns + villages
         defaultSpeedMap.put("secondary", 60);
         defaultSpeedMap.put("secondary_link", 50);
         // streets without middle line separation
-        defaultSpeedMap.put("tertiary", 50);
-        defaultSpeedMap.put("tertiary_link", 40);
-        defaultSpeedMap.put("unclassified", 30);
+        defaultSpeedMap.put("tertiary", 60);//50);
+        defaultSpeedMap.put("tertiary_link", 50);//40);
+        defaultSpeedMap.put("unclassified", 40);//30);
+//       // autobahn
+//        defaultSpeedMap.put("motorway", 100);
+//        defaultSpeedMap.put("motorway_link", 70);
+//        defaultSpeedMap.put("motorroad", 90);
+//        // bundesstraße
+//        defaultSpeedMap.put("trunk", 70);
+//        defaultSpeedMap.put("trunk_link", 65);
+//        // linking bigger town
+//        defaultSpeedMap.put("primary", 65);
+//        defaultSpeedMap.put("primary_link", 60);
+//        // linking towns + villages
+//        defaultSpeedMap.put("secondary", 60);
+//        defaultSpeedMap.put("secondary_link", 50);
+//        // streets without middle line separation
+//        defaultSpeedMap.put("tertiary", 50);
+//        defaultSpeedMap.put("tertiary_link", 40);
+//        defaultSpeedMap.put("unclassified", 30);
         defaultSpeedMap.put("residential", 30);
         // spielstraße
         defaultSpeedMap.put("living_street", 5);
@@ -162,6 +181,12 @@ public class CarFlagEncoder extends AbstractFlagEncoder {
     }
 
     protected double getSpeed(ReaderWay way) {
+    	// Use maxspeed tag value if specified
+    	String maxspeedValue = way.getTag("maxspeed");
+    	if (!Helper.isEmpty(maxspeedValue)) {
+   	 		return Double.parseDouble(maxspeedValue);
+   	 	}
+    	
         String highwayValue = way.getTag("highway");
         if (!Helper.isEmpty(highwayValue) && way.hasTag("motorroad", "yes")
                 && highwayValue != "motorway" && highwayValue != "motorway_link") {
