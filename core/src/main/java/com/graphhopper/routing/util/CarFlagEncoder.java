@@ -131,9 +131,9 @@ public class CarFlagEncoder extends AbstractFlagEncoder {
         defaultSpeedMap.put("secondary", 60);
         defaultSpeedMap.put("secondary_link", 50);
         // streets without middle line separation
-        defaultSpeedMap.put("tertiary", 60);//50);
-        defaultSpeedMap.put("tertiary_link", 50);//40);
-        defaultSpeedMap.put("unclassified", 40);//30);
+        //defaultSpeedMap.put("tertiary", 60);//50);
+        //defaultSpeedMap.put("tertiary_link", 50);//40);
+        //defaultSpeedMap.put("unclassified", 40);//30);
 //       // autobahn
 //        defaultSpeedMap.put("motorway", 100);
 //        defaultSpeedMap.put("motorway_link", 70);
@@ -148,9 +148,9 @@ public class CarFlagEncoder extends AbstractFlagEncoder {
 //        defaultSpeedMap.put("secondary", 60);
 //        defaultSpeedMap.put("secondary_link", 50);
 //        // streets without middle line separation
-//        defaultSpeedMap.put("tertiary", 50);
-//        defaultSpeedMap.put("tertiary_link", 40);
-//        defaultSpeedMap.put("unclassified", 30);
+        defaultSpeedMap.put("tertiary", 50);
+        defaultSpeedMap.put("tertiary_link", 40);
+        defaultSpeedMap.put("unclassified", 30);
         defaultSpeedMap.put("residential", 30);
         // spielstraße
         defaultSpeedMap.put("living_street", 5);
@@ -184,7 +184,14 @@ public class CarFlagEncoder extends AbstractFlagEncoder {
     	// Use maxspeed tag value if specified
     	String maxspeedValue = way.getTag("maxspeed");
     	if (!Helper.isEmpty(maxspeedValue)) {
-   	 		return Double.parseDouble(maxspeedValue);
+    		try {
+   	 			return Double.parseDouble(maxspeedValue);
+    		} catch(NumberFormatException e) {
+    			// Ignore non number maxspeed value
+    			// https://wiki.openstreetmap.org/wiki/Key:maxspeed
+    			System.out.println("NUMBER FORMAT EXCEPTION maxspeed='" + maxspeedValue + "'");
+   	 			System.out.println(way.toString());
+   	 		}
    	 	}
     	
         String highwayValue = way.getTag("highway");
