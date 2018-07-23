@@ -16,3 +16,13 @@ DefaultFlagEncoderFactoryにCarAvoidTollFlagEncoderを追加した。
 
 https://help.github.com/articles/configuring-a-remote-for-a-fork/
 https://help.github.com/articles/syncing-a-fork/
+
+#　実行
+
+config.propertiesのgraph.flag_encodersにcar_avoid_tollを追加する
+graph.flag_encoders=car,car_avoid_toll
+（注意：config.propertiesは.gitignoreに入っている）
+
+下記コマンドで実行
+OSMのグラフを作るのにメモリが2GB以上必要
+$ ./graphhopper.sh web japan-latest.osm.pbf
