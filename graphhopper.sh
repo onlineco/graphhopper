@@ -206,7 +206,7 @@ else
 fi
 
 if [ "$JAVA_OPTS" = "" ]; then
-  JAVA_OPTS="-Xmx4000m -Xms4000m -server"
+  JAVA_OPTS="-Xmx8000m -Xms8000m -server"
 fi
 
 ensureOsm
