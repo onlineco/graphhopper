@@ -185,7 +185,7 @@ public class CarFlagEncoder extends AbstractFlagEncoder {
     	String maxspeedValue = way.getTag("maxspeed");
     	if (!Helper.isEmpty(maxspeedValue)) {
     		try {
-   	 			return Double.parseDouble(maxspeedValue);
+                return Double.parseDouble(maxspeedValue);
     		} catch(NumberFormatException e) {
     			// Ignore non number maxspeed value
     			// https://wiki.openstreetmap.org/wiki/Key:maxspeed
@@ -213,7 +213,17 @@ public class CarFlagEncoder extends AbstractFlagEncoder {
         }
 
         //return speed;
-        return speed * 0.7;
+        // return speed * 0.7;
+        
+        
+        if (highwayValue.equals("mortorway")) {
+            return ((double)speed) * 0.7;
+        //} else if (highwayValue.equals("trunk")) {
+        //    return speed * 0.5;
+        } else {
+            return ((double)speed) * 0.4;
+        }
+        
     }
 
     @Override
